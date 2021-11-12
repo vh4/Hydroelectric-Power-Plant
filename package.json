@@ -1,0 +1,74 @@
+{
+  "name": "inovillage Tambolosu Dashboard",
+  "version": "1.0.2",
+  "description": "A multi theme, completely accessible, with components and pages examples, ready for production dashboard.",
+  "scripts": {
+    "tailwind": "tailwindcss build public/assets/css/tailwind.css -o public/assets/css/tailwind.output.css",
+    "build": "env NODE_ENV=production postcss public/assets/css/tailwind.css -o public/assets/css/tailwind.output.css",
+    "cz": "git-cz",
+    "release": "release-it",
+    "asheng_ler": "cross-env NODE_ENV=development nodemon server"
+  },
+  "author": "Estevan Maito <ejmaito@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@release-it/conventional-changelog": "1.1.4",
+    "@tailwindcss/custom-forms": "0.2.1",
+    "autoprefixer": "9.8.0",
+    "color": "3.1.2",
+    "commitizen": "4.1.2",
+    "cssnano": "4.1.10",
+    "cz-conventional-changelog": "3.2.0",
+    "postcss-cli": "7.1.1",
+    "release-it": "13.6.4",
+    "tailwindcss": "1.4.6",
+    "tailwindcss-multi-theme": "1.0.3"
+  },
+  "keywords": [
+    "tailwind",
+    "windmill",
+    "dashboard",
+    "template",
+    "admin"
+  ],
+  "release-it": {
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "main": "postcss.config.js",
+  "dependencies": {
+    "@serialport/parser-readline": "^9.2.4",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-flash-message": "^2.1.0",
+    "express-session": "^1.17.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.13",
+    "serialport": "^9.2.4",
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.3.2"
+  }
+}

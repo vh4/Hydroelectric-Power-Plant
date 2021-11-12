@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PLTA Tambolosu</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+<!-- style -->
+<style>
+#grad1 {
+  background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(130,247,247,1) 0%, rgba(252,251,121,1) 100%);
+}
+</style>
+<!-- end style -->
+
+<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="assets/css/mcbToggle.css" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="assets/js/alpine.min.js"></script>
+    <script src="assets/js/init-alpine.js"></script>
+    <script src="assets/js/charts-lines.js" defer></script>
+    <script src="assets/js/charts-pie.js" defer></script>
+    <script src="assets/Highcharts-Stock-9.2.2/code/highstock.js"></script>
+    <script src="assets/Highcharts-Stock-9.2.2/code/modules/exporting.js"></script>
+    <script src="assets/Highcharts-Stock-9.2.2/code/modules/export-data.js"></script>
+    <script src="assets/Highcharts-Stock-9.2.2/code/highcharts.js"></script>
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/socket.io.min.js" ></script>
+    <script src="assets/js/dataTables.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js"></script>
+    <script src="assets/js/bootstrap.dataTables.min.js"></script>
+  </head>
+  <body>
+    <div
+      class="flex h-screen bg-gray-50 dark:bg-gray-900"
+      :class="{ 'overflow-hidden': isSideMenuOpen }"
+    >
+<!-- sidebar header mobile dan web responsive -->
+    <%- include('./components/sidebar.ejs') %>
+      <div class="flex flex-col flex-1 w-full">
+    <%- include('./components/header.ejs') %>
+<!-- end sidebar header mobile dan web responsive -->
+
+<!-- main Dashboard index grafik mcb dan notification content -->
+        <main class="h-full overflow-y-auto">
+            <%- body %>
+        </main>
+<!-- end main Dashboard index grafik mcb dan notification content -->
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,272 @@
+<!-- dashboard MCB Grafik dll -->
+<div class="px-6 mx-auto grid">
+  <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> Dashboard </h2>
+  <div class="grid gap-6 mb-8 md:grid-cols-1">
+    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex text-2xl justify-between">
+        <div>
+          <h4 class="font-semibold text-text-gray-500 dark:text-gray-300"> MAIN MCB </h4>
+        </div>
+        <div>
+          <h4 class="float-left pt-4 font-semibold text-text-gray-400 dark:text-gray-300">
+            <text id="total_mcb"> 0.00 </text> (W)
+          </h4>
+          <small class="text-gray-400 mb-12 text-xs">Total MCB (Kwh/jam)</small>
+        </div>
+      </div>
+      <div id="container" style="height: 400px; min-width: 310px"></div>
+      <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
+        <!-- Chart legend -->
+        <div class="flex items-center">
+          <span class="inline-block w-3 h-3 mr-1 bg-blue-600 rounded-full"></span>
+          <span>Kwh</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Cards -->
+  <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+    <!-- Card MCB 1 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 1 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk1" />
+          <label class="label" for="chk1">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb1"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 2 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 2 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk2" />
+          <label class="label" for="chk2">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb2"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 3 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 3 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk3" />
+          <label class="label" for="chk3">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb3"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 4 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 4 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk4" />
+          <label class="label" for="chk4">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb4"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 5 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 5 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk5" />
+          <label class="label" for="chk5">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb5"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 6 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 6 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk6" />
+          <label class="label" for="chk6">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb6"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 7 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 7 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk7" />
+          <label class="label" for="chk7">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb7"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 8 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 8 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk8" />
+          <label class="label" for="chk8">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb8"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 9 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 9 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk9" />
+          <label class="label" for="chk9">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb9"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+    <!-- Card MCB 10 -->
+    <div class="relative py-4 p-6 pt-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex justify-between">
+        <div class="relative">
+          <p class="mb-8 text-2xl font-bold text-gray-600 dark:text-gray-400"> MCB 10 </p>
+        </div>
+        <div class="relative text-sm">
+          <input type="checkbox" class="checkbox" id="chk10" />
+          <label class="label" for="chk10">
+            <i class="fa fa-check-circle text-white text-2xl"></i>
+            <i class="fa fa-close text-white text-2xl"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
+      <div class="flex justify-between mt-8">
+        <div>
+          <p class="text-2xl font-bold text-purple-600 dark:text-gray-200" id="mcb10"> 0.00 </p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-400 dark:text-gray-200"> WATT </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end dashboard MCB Grafik dll -->
+<script src="/data/main.js"></script>

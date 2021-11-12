@@ -1,0 +1,149 @@
+      <!-- Desktop website sidebar -->
+      <aside
+        class="z-20 hidden w-64  overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
+      >
+        <div class="py-4 text-gray-400 dark:text-gray-400">
+        <div class="flex text-text-gray-400">
+        <img class="ml-6" src="./assets/img/plta.jpeg" width="30px" height="20px">
+        <div class="text-2xl align-center justify-between">
+        <p>PLTA</p>
+        </div>
+        <div class="text-text-gray-400 justify-items-end items-end mt-4 mr-2">
+        <p>tambolosu</p>
+        </div>
+        </div>
+          <a
+            class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+            href="#"
+          >
+          </a>
+          <ul>
+            <li class="relative px-6 py-3 rounded-full" <% if (title === 'Dashboard') { %>id="grad1" <% } %> >
+              <% if(title === 'Dashboard'){ %>
+                <span
+                  class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                  aria-hidden="true"
+                ></span>
+                <% } %>
+              <a style="text-decoration: none;"
+                class="inline-flex text-muted items-center w-full text-sm font-semibold transition-colors bg-red-800 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/"
+              >
+
+                <img
+                class="w-3"
+                aria-hidden="true"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                src="./assets/img/dashboard_icon.png" alt="">
+                <span class="ml-4 ">Dashboard</span>
+              </a>
+            </li>
+          </ul>
+          <ul>
+            <li class="relative px-6 py-3 rounded-full" <% if (title === 'Notif') { %>id="grad1" <% } %> >
+              <% if(title === 'Notif'){ %>
+              <span
+                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+              <% } %>
+              <a style="text-decoration: none;"
+                class="inline-flex text-muted items-center w-full text-sm font-semibold transition-colors bg-red-800 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/notification"
+              ><i class="fa fa-file"></i>
+                <span class="ml-4">Notification</span>
+              </a>
+            </li>
+            <li class="relative px-6 py-3">
+              <a style="text-decoration: none"
+                class="inline-flex text-muted items-center w-full text-sm font-semibold transition-colors hover:bg duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/"
+              >
+              <i class="fa fa-download"></i>
+                <span class="ml-4">Panduan Pakai</span>
+              </a>
+            </li>
+          </ul>
+          <div class="px-6 my-6">
+          </div>
+        </div>
+      </aside>
+      <!-- Mobile sidebar -->
+
+      <aside
+        class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+        x-show="isSideMenuOpen"
+        x-transition:enter="transition ease-in-out duration-150"
+        x-transition:enter-start="opacity-0 transform -translate-x-20"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in-out duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0 transform -translate-x-20"
+        @click.away="closeSideMenu"
+        @keydown.escape="closeSideMenu"
+      >
+        <div class="py-4 text-gray-500 dark:text-gray-400">
+          <ul class="mt-2">
+            <li class="relative px-6 py-3 rounded-full" <% if (title === 'Dashboard') { %>id="grad1" <% } %> >
+              <% if(title === 'Dashboard'){ %>
+                <span
+                  class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                  aria-hidden="true"
+                ></span>
+                <% } %>
+              <a style="text-decoration: none;"
+                class="inline-flex text-muted items-center w-full text-sm font-semibold transition-colors bg-red-800 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/"
+              >
+
+                <img
+                class="w-3"
+                aria-hidden="true"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                src="./assets/img/dashboard_icon.png" alt="">
+                <span class="ml-4 ">Dashboard</span>
+              </a>
+            </li>
+          </ul>
+          <ul>
+            <li class="relative px-6 py-3 rounded-full" <% if (title === 'Notif') { %>id="grad1" <% } %> >
+              <% if(title === 'Notif'){ %>
+              <span
+                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+              <% } %>
+              <a style="text-decoration: none;"
+                class="inline-flex text-muted items-center w-full text-sm font-semibold transition-colors bg-red-800 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/notification"
+              ><i class="fa fa-file"></i>
+                <span class="ml-4">Notification</span>
+              </a>
+            </li>
+            <li class="relative px-6 py-3">
+              <a style="text-decoration: none"
+                class="inline-flex text-muted items-center w-full text-sm font-semibold transition-colors hover:bg duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/"
+              >
+              <i class="fa fa-download"></i>
+                <span class="ml-4">Panduan Pakai</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+      <script>
+        $(document).ready(function(){
+
+        })
+      </script>

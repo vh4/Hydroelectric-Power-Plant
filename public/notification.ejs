@@ -1,0 +1,85 @@
+<style>
+    .page-item.active .page-link {
+        background-color: lightgrey !important;
+        border: 1px solid black;
+    }
+    .page-link {
+        color: black !important;
+    }
+</style>
+          <div class="px-6 mx-auto grid">
+            <!-- With actions -->
+            <h4
+              class="mt-8 mb-4 pt-16 text-2xl font-semibold text-gray-600 dark:text-gray-300"
+            >
+              Table Notification
+            </h4>
+            <div class="">
+              <a class="" href="/notification/deleted"><button class="btn btn-outline-danger mb-2" name="button">delete all <i class="fa fa-trash"></i></button></a>
+            </div>
+            <% if (msg.length !== 0){ %>
+            <div class="mr-auto ml-auto">
+                <div class="alert alert-danger">
+                    <%= msg %>
+                </div>
+            </div>
+            <% } %>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+              <div class="w-full overflow-x-auto">
+                <table id="dataTable" class="w-full whitespace-no-wrap">
+                    <thead class="bg-gray-50 text-left">
+                        <tr>
+                            <th class="px-6 py-2 text-xs text-gray-500">
+                                Daya
+                            </th>
+                            <th class="px-6 py-2 text-xs text-gray-500">
+                                Status
+                            </th>
+                            <th class="px-6 py-2 text-xs text-gray-500">
+                                MCB
+                            </th>
+                            <th class="px-6 py-2 text-xs text-gray-500">
+                                Tanggal
+                            </th>
+                            <th class="px-6 py-2 text-xs text-gray-500">
+                                Delete
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-300">
+                        <% notif.forEach(data => { %>
+                        <tr class="whitespace-nowrap">
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                <%= data.kelebihan_daya %> Watt
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+                                    <%= data.status %>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                <%= data.mcb %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-500">
+                                    <%= new Date(data.tanggal).toLocaleString('id-ID',{month:'long', year:'numeric', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric'}) %>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+
+                                        <a href="/notification/id/<%= data.id %>">
+                                          <i class="fa fa-trash"></i>
+                                        </a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+</div>
+<script>
+    $(document).ready( function () {
+        $('#dataTable').DataTable();
+    } );
+</script>

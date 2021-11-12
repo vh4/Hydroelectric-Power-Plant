@@ -1,0 +1,171 @@
+<!--
+
+                                                              TAHAP PENGEMBANGAN
+
+  <style>
+   button {
+     background: #fff;
+     color: #222;
+     padding: 4px 17px;
+   }
+
+   button.active {
+     color: #fff;
+     background: #008FFB;
+   }
+
+   button:focus {
+     outline: 0;
+   }
+
+ </style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<div class="px-6 mx-auto grid">
+  <h4 class="mt-8 mb-4 pt-16 text-2xl font-semibold text-gray-600 dark:text-gray-300"> History Pemakaian </h4>
+  <div class="grid gap-6 mb-8 md:grid-cols-1">
+    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+      <div class="flex text-2xl justify-between">
+      </div>
+      <div id="chart">
+ <div class="toolbar">
+   <button id="one_month"
+
+       >
+     1M
+   </button>
+
+   <button id="six_months"
+
+       >
+     6M
+   </button>
+
+   <button id="one_year"
+       class="active"
+       >
+     1Y
+   </button>
+
+   <button id="ytd"
+
+       >
+     YTD
+   </button>
+
+   <button id="all"
+
+       >
+     ALL
+   </button>
+ </div>
+
+ <div id="history" style="height: 100%; width:100%"></div>
+</div>
+      <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
+        <div class="flex items-center">
+          <span>Kwh</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+      const data_mcb = <%- JSON.stringify(mcb) %>;
+      var tampung_semua_mcb1 = []
+
+
+      //mcb1 januari
+
+      var mcb1_value = 0;
+      var lenght1= [];
+
+      data_mcb.forEach(mcbcurrect => {
+      if(mcbcurrect.mcb1){
+            const date1 = new Date(mcbcurrect.mcb1.tanggal)
+            if(date1.getMonth() == 10){
+              mcb1_value = mcb1_value + parseInt(mcbcurrect.mcb1.data)
+              lenght1.push(parseInt(mcbcurrect.mcb1.data))
+            }
+        }
+      })
+
+      mcb1_value = mcb1_value/lenght1.length
+      //tampung_semua_mcb1.push(mcb1_value)
+
+//mcb1 februari
+
+var mcb1_value_feb = 0;
+var lenght1_feb= [];
+
+//mcb1 januari
+data_mcb.forEach(mcbcurrect => {
+if(mcbcurrect.mcb1){
+      const date1_Feb = new Date(mcbcurrect.mcb1.tanggal)
+      if(date1_Feb.getMonth() == 8){
+        console.log(mcbcurrect.mcb1.data)
+        mcb1_value_feb = mcb1_value_feb + parseInt(mcbcurrect.mcb1.data)
+        lenght1_feb.push(parseInt(mcbcurrect.mcb1.data))
+      }
+  }
+})
+
+mcb1_value_feb = mcb1_value_feb/lenght1_feb.length
+tampung_semua_mcb1.push(mcb1_value)
+
+      var options = {
+        series: [{
+        name: 'Marine Sprite',
+        data: [44, 55, 41, 37, 22, 43, 21]
+      }],
+        chart: {
+        type: 'bar',
+        height: 550,
+        stacked: true,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+        },
+      },
+      stroke: {
+        width: 1,
+        colors: ['#fff']
+      },
+      title: {
+        text: 'Fiction Books Sales'
+      },
+      xaxis: {
+        categories: ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'],
+        labels: {
+          formatter: function (val) {
+            return val + "Kwh"
+          }
+        }
+      },
+      yaxis: {
+        title: {
+          text: undefined
+        },
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val + "Kwh"
+          }
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left',
+        offsetX: 40
+      }
+      };
+
+      var chart = new ApexCharts(document.querySelector("#history"), options);
+      chart.render();
+
+</script> -->
