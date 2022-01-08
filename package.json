@@ -7,7 +7,7 @@
     "build": "env NODE_ENV=production postcss public/assets/css/tailwind.css -o public/assets/css/tailwind.output.css",
     "cz": "git-cz",
     "release": "release-it",
-    "asheng_ler": "cross-env NODE_ENV=development nodemon server"
+    "dev": "cross-env NODE_ENV=development nodemon server"
   },
   "author": "Estevan Maito <ejmaito@gmail.com>",
   "license": "MIT",

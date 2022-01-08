@@ -17,6 +17,30 @@
       var total_mcb = document.getElementById('total_mcb');
       var RELAY = document.getElementById('Relay');
 
+    //add disaplay and css in card
+      var disabled1 = document.getElementById('disabled1');
+      var disabled2 = document.getElementById('disabled2');
+      var disabled3 = document.getElementById('disabled3');
+      var disabled4 = document.getElementById('disabled4');
+      var disabled5 = document.getElementById('disabled5');
+      var disabled6 = document.getElementById('disabled6');
+      var disabled7 = document.getElementById('disabled7');
+      var disabled8 = document.getElementById('disabled8');
+      var disabled9 = document.getElementById('disabled9');
+      var disabled10 = document.getElementById('disabled10');
+
+      //add cross in div
+      var disabled1_html = document.getElementById('disabled1_html')
+      var disabled2_html = document.getElementById('disabled2_html')
+      var disabled3_html = document.getElementById('disabled3_html')
+      var disabled4_html = document.getElementById('disabled4_html')
+      var disabled5_html = document.getElementById('disabled5_html')
+      var disabled6_html = document.getElementById('disabled6_html')
+      var disabled7_html = document.getElementById('disabled7_html')
+      var disabled8_html = document.getElementById('disabled8_html')
+      var disabled9_html = document.getElementById('disabled9_html')
+      var disabled10_html = document.getElementById('disabled10_html')
+
       //id mcb for inner htm to given data from socket.io
       var power_mcb1 = document.getElementById('chk1');
       var power_mcb2 = document.getElementById('chk2');
@@ -29,15 +53,85 @@
       var power_mcb9 = document.getElementById('chk9');
       var power_mcb10 = document.getElementById('chk10');
 
-     //power mcb 1
+        //disable mcb
+            disabled1.style.display = 'block';
+            disabled2.style.display = 'block';
+
+            $('#Relay').click(function(){
+                if(RELAY.checked == true){
+                    //mcb1
+                    disabled1.classList.add("crossed")
+                    disabled1_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb2
+                    disabled2.classList.add("crossed")
+                    disabled2_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb3
+                    disabled3.classList.add("crossed")
+                    disabled3_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb4
+                    disabled4.classList.add("crossed")
+                    disabled4_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb5
+                    disabled5.classList.add("crossed")
+                    disabled5_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb6
+                    disabled6.classList.add("crossed")
+                    disabled6_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb7
+                    disabled7.classList.add("crossed")
+                    disabled7_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb8
+                    disabled8.classList.add("crossed")
+                    disabled8_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'
+                    //mcb9
+                    disabled9.classList.add("crossed")
+                    disabled9_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'    
+                    //mcb10
+                    disabled10.classList.add("crossed")
+                    disabled10_html.innerHTML = '<svg><line x1="0" y1="100%" x2="100%" y2="0" /><line x1="0" y1="0" x2="100%" y2="100%" /></svg>'                                      
+                }else{
+                    //mcb1
+                    disabled1.style.display = 'block';
+                    disabled1_html.innerHTML = ''
+                    //mcb2
+                    disabled2.style.display = 'block';
+                    disabled2_html.innerHTML = ''
+                    //mcb3
+                    disabled3.style.display = 'block';
+                    disabled3_html.innerHTML = ''
+                    //mcb4
+                    disabled4.style.display = 'block';
+                    disabled4_html.innerHTML = ''                    
+                    //mcb5
+                    disabled5.style.display = 'block';
+                    disabled5_html.innerHTML = ''
+                    //mcb6
+                    disabled6.style.display = 'block';
+                    disabled6_html.innerHTML = ''
+                    //mcb7
+                    disabled7.style.display = 'block';
+                    disabled7_html.innerHTML = ''
+                    //mcb8
+                    disabled8.style.display = 'block';
+                    disabled8_html.innerHTML = ''
+                    //mcb9
+                    disabled9.style.display = 'block';
+                    disabled9_html.innerHTML = ''
+                    //mcb10
+                    disabled10.style.display = 'block';
+                    disabled10_html.innerHTML = ''
+
+                }
+            })
+
+
+        //power mcb 1
         $('#chk1').click(function(){
+            console.log("benar")
             if(power_mcb1.checked == true){
-                socket.emit('mcb1_power', 1);
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
+                socket.emit('mcb1_power', 1)
             }else{
                 socket.emit('mcb1_power', 2)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
         })
 
@@ -46,12 +140,8 @@
 
         if(power_mcb2.checked == true){
             socket.emit('mcb2_power', 3)
-            setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
         }else{
             socket.emit('mcb2_power', 4)
-            setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
         }
 
         })
@@ -61,12 +151,8 @@
 
             if(power_mcb3.checked == true){
                 socket.emit('mcb3_power', 5)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb3_power', 6)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -77,12 +163,8 @@
             //power mcb 2
             if(power_mcb4.checked == true){
                 socket.emit('mcb4_power', 7)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb4_power', 8)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -92,12 +174,8 @@
 
             if(power_mcb5.checked == true){
                 socket.emit('mcb5_power', 9)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb5_power', 10)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -107,12 +185,8 @@
 
             if(power_mcb6.checked == true){
                 socket.emit('mcb6_power', 11)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb6_power', 12)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -122,12 +196,8 @@
 
             if(power_mcb7.checked == true){
                 socket.emit('mcb7_power', 13)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb7_power', 14)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -137,12 +207,8 @@
 
             if(power_mcb8.checked == true){
                 socket.emit('mcb8_power', 15)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb8_power', 16)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -152,12 +218,8 @@
 
             if(power_mcb9.checked == true){
                 socket.emit('mcb9_power', 17)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb9_power', 18)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
@@ -166,17 +228,11 @@
 
             if(power_mcb10.checked == true){
                 socket.emit('mcb10_power', 19)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }else{
                 socket.emit('mcb10_power', 20)
-                setTimeout(function(){ alert("Tombol Berhasil Dikirim"); }, 5000);
-
             }
 
             })
-    
-    
       socket.on('data_dummy', (result)=>{
 
         mcb1.innerHTML = result.data_dummy[0];
@@ -190,8 +246,8 @@
         mcb9.innerHTML = result.data_dummy[8];
         mcb10.innerHTML = result.data_dummy[9];
 
-        total_mcb.innerHTML = result.data_dummy[20]
-        main_mcb = parseFloat(result.data_dummy[20])
+        total_mcb.innerHTML = result.data_dummy[0]
+        main_mcb = parseFloat(result.data_dummy[0])
         
         //checked mcb
         checked_mcb1 = parseInt(result.data_dummy[10])
@@ -205,70 +261,69 @@
         checked_mcb9 = parseInt(result.data_dummy[18])
         checked_mcb10 = parseInt(result.data_dummy[19])
 
-        
         //mcb1 checked from arduino
-               
-        // if(checked_mcb1 == 1){
-        //     power_mcb1.checked = true;
-        // }else{
-        //         power_mcb1.checked = false;
-        // }
+        if(checked_mcb1 == 1){
+            power_mcb1.checked = true;
+        }else{
+            power_mcb1.checked = false;
+        }
         //mcb2 checked
-    //     if(checked_mcb2 == 1){
-    //         power_mcb2.checked = true;
-    //     }else{
-    //         power_mcb2.checked = false;
-    //     }
-    //     //mcb3 checked
-    //     if(checked_mcb3 == 1){
-    //         power_mcb3.checked = true;
-    //     }else{
-    //         power_mcb3.checked = false;
-    //     }        
-    //     //mcb4 checked
-    //     if(checked_mcb4 == 1){
-    //         power_mcb4.checked = true;
-    //     }else{
-    //         power_mcb4.checked = false;
-    //     }
-    //     //mcb5 checked
-    //     if(checked_mcb5 == 1){
-    //         power_mcb5.checked = true;
-    //     }else{
-    //         power_mcb5.checked = false;
-    //     }
-    //     //mcb6 checked
-    //     if(checked_mcb6 == 1){
-    //         power_mcb6.checked = true;
-    //     }else{
-    //         power_mcb6.checked = false;
-    //     }
-    //     //mcb7 checked
-    //     if(checked_mcb7 == 1){
-    //         power_mcb7.checked = true;
-    //     }else{
-    //         power_mcb7.checked = false;
-    //     }
-    //     //mcb8 checked
-    //     if(checked_mcb8 == 1){
-    //         power_mcb8.checked = true;
-    //     }else{
-    //         power_mcb8.checked = false;
-    //     }
-    //     //mcb9 checked
-    //     if(checked_mcb9 == 1){
-    //         power_mcb9.checked = true;
-    //     }else{
-    //         power_mcb9.checked = false;
-    //     }
-    //     //mcb8 checked
-    //     if(checked_mcb10 == 1){
-    //         power_mcb10.checked = true;
-    //     }else{
-    //         power_mcb10.checked = false;
-    //     }
+        if(checked_mcb2 == 1){
+            power_mcb2.checked = true;
+        }else{
+            power_mcb2.checked = false;
+        }
+        //mcb3 checked
+        if(checked_mcb3 == 1){
+            power_mcb3.checked = true;
+        }else{
+            power_mcb3.checked = false;
+        }        
+        //mcb4 checked
+        if(checked_mcb4 == 1){
+            power_mcb4.checked = true;
+        }else{
+            power_mcb4.checked = false;
+        }
+        //mcb5 checked
+        if(checked_mcb5 == 1){
+            power_mcb5.checked = true;
+        }else{
+            power_mcb5.checked = false;
+        }
+        //mcb6 checked
+        if(checked_mcb6 == 1){
+            power_mcb6.checked = true;
+        }else{
+            power_mcb6.checked = false;
+        }
+        //mcb7 checked
+        if(checked_mcb7 == 1){
+            power_mcb7.checked = true;
+        }else{
+            power_mcb7.checked = false;
+        }
+        //mcb8 checked
+        if(checked_mcb8 == 1){
+            power_mcb8.checked = true;
+        }else{
+            power_mcb8.checked = false;
+        }
+        //mcb9 checked
+        if(checked_mcb9 == 1){
+            power_mcb9.checked = true;
+        }else{
+            power_mcb9.checked = false;
+        }
+        //mcb8 checked
+        if(checked_mcb10 == 1){
+            power_mcb10.checked = true;
+        }else{
+            power_mcb10.checked = false;
+        }
 
     })
+
 
       function getRnd(min, max) {
         return Math.random() * (max - min) + min;
@@ -346,4 +401,6 @@
                 }())
             }]
         });
+
+
     });

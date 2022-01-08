@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const server = require('http').Server(app)
@@ -6,7 +7,54 @@ const bodyparser = require('body-parser')
 const Router = require('./Router/web')
 const path = require('path')
 const expressLayouts = require('express-ejs-layouts');
-const {PushDataIntoMCB, PushDataIntoNotification} = require('./databases/database')
+const {
+    PushDataIntoNotification, 
+    Notification, 
+    deleteAllNotification,
+    //mcb
+    MCB,
+    PushDataIntoMCB,
+    deleteAllMCB, 
+
+    MCB2,
+    PushDataIntoMCB2,
+    deleteAllMCB2,
+
+    MCB3,
+    PushDataIntoMCB3,
+    deleteAllMCB3,
+
+    MCB4,
+    PushDataIntoMCB4,
+    deleteAllMCB4,
+
+    MCB5,
+    PushDataIntoMCB5,
+    deleteAllMCB5,
+
+    MCB6,
+    PushDataIntoMCB6,
+    deleteAllMCB6,
+
+    MCB7,
+    PushDataIntoMCB7,
+    deleteAllMCB7,
+
+    MCB8,
+    PushDataIntoMCB8,
+    deleteAllMCB8,
+
+    MCB9,
+    PushDataIntoMCB9,
+    deleteAllMCB9,
+
+    MCB10,
+    PushDataIntoMCB10,
+    deleteAllMCB10,
+
+    toggleMCBupdate
+} = require('./databases/database')
+
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -24,7 +72,7 @@ app.use(flash())
 
 const serialPort = require('serialport');
 const readline   = require('@serialport/parser-readline');
-const com = new serialPort("COM5",{baudRate:57600});
+const com = new serialPort("COM5",{baudRate:9600});
 process.setMaxListeners(0);
 
 app.set('view engine', 'ejs');
@@ -40,378 +88,337 @@ com.on('open',function(){
     console.log( "terhubung serial communicaction");
 });
 
-
 const parses = com.pipe(new readline({
     delimiter: '\r\n'
 }))
 
 // data dummy dari server Arduino Parsing
-
 parses.on("data", function(data){
     going_to_database_file = data.toString().replace(/(\r\n\n\r)/gm, ",").split(","); //parsing data important !!!
     var today = new Date();
 
+    //ototmatis delete 
+    if(Notification().length > 100){
+        deleteAllNotification()
+    }
+
+    //declaraction mcb
+
+    function hati_hati(value, no_mcb){
+        
+        const databsaes_data_notification_mcb =
+        {
+            id:Math.random(),
+            kelebihan_daya:value,
+            mcb:no_mcb,
+            status: 'HATI-HATI, HAMPIR KELEBIHAN DAYA',
+            tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+        }
+
+        return databsaes_data_notification_mcb;
+    }
+
+    function Kelebihan_daya(value, no_mcb){
+
+        const databsaes_data_notification_mcb =
+        {
+            id:Math.random(),
+            kelebihan_daya:value,
+            mcb:no_mcb,
+            status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
+            tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+        }
+
+        return databsaes_data_notification_mcb;
+
+    }
+
     //mcb 1
     if(going_to_database_file[0] != 'undefined'){
-        if(going_to_database_file[0] > 200 && going_to_database_file[0] <= 220){
-            const databsaes_data_notification_mcb1 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[0],
-                mcb:1,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb1)
-        }else if(going_to_database_file[0] > 220){
-            const databsaes_data_notification_mcb1 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[0],
-                mcb:1,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb1)
+        if(going_to_database_file[0] > 390 && going_to_database_file[0] <= 400){
+            setTimeout(()=>{
+                PushDataIntoMCB(1)
+              },3000)
+              
+              if(MCB().length > 60){
+                deleteAllMCB()
+                PushDataIntoNotification(hati_hati(going_to_database_file[0], 1))
+              }
+              
+            
+        }else if(going_to_database_file[0] > 400){
+            setTimeout(()=>{
+                PushDataIntoMCB(1)
+              },3000)
+              
+              if(MCB().length > 60){
+                deleteAllMCB()
+                PushDataIntoNotification(Kelebihan_daya(going_to_database_file[0], 1))
+              }
         }
     }
-    //mcb 2
-    if(going_to_database_file[1] !== 'undefined'){
-        if(going_to_database_file[1] > 200 && going_to_database_file[1] <= 220){
-            const databsaes_data_notification_mcb2 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[1],
-                mcb:2,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+
+        //mcb 2
+        if(going_to_database_file[1] !== 'undefined'){
+            if(going_to_database_file[1] > 390 && going_to_database_file[1] <= 400){
+
+                setTimeout(()=>{
+                    PushDataIntoMCB2(1)
+                  },3000)
+                  
+                  if(MCB2().length > 60){
+                    deleteAllMCB2()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[1], 2))
+                }
+                  
+            }else if(going_to_database_file[1] > 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB2(1)
+                  },3000)
+                  
+                  if(MCB2().length > 60){
+                    deleteAllMCB2()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[1], 2))
+                }
             }
-            PushDataIntoNotification(databsaes_data_notification_mcb2)
-        }else if(going_to_database_file[1] > 220){
-            const databsaes_data_notification_mcb2 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[1],
-                mcb:2,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb2)
         }
-    }
-    //mcb 3
+
+        //mcb 3
     if(going_to_database_file[2] !== 'undefined'){
-        if(going_to_database_file[2] > 200 && going_to_database_file[2] <= 220){
-            const databsaes_data_notification_mcb3 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[2],
-                mcb:3,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+        if(going_to_database_file[2] > 390 && going_to_database_file[2] <= 400){
+            setTimeout(()=>{
+                PushDataIntoMCB3(1)
+              },3000)
+              
+              if(MCB3().length > 60){
+                deleteAllMCB3()
+                PushDataIntoNotification(hati_hati(going_to_database_file[2], 3))
             }
-            PushDataIntoNotification(databsaes_data_notification_mcb3)
-        }else if(going_to_database_file[2] >= 220){
-            const databsaes_data_notification_mcb3 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[2],
-                mcb:3,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb3)
-        }
-    }
-    //mcb 4
-    if(going_to_database_file[3] != 'undefined'){
-        if(going_to_database_file[3] > 200 && going_to_database_file[3] <= 220){
-            const databsaes_data_notification_mcb4 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[3],
-                mcb:4,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb4)
-        }else if(going_to_database_file[3] > 220){
-            const databsaes_data_notification_mcb4 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[3],
-                mcb:4,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb4)
-        }
-    }
-       //mcb 5
+        }else if(going_to_database_file[2] > 400){
 
-       if(going_to_database_file[4] != 'undefined'){
-        if(going_to_database_file[4] > 200 && going_to_database_file[4] <= 220){
-            const databsaes_data_notification_mcb5 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[4],
-                mcb:5,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+            setTimeout(()=>{
+                PushDataIntoMCB3(1)
+              },3000)
+              
+              if(MCB3().length > 60){
+                deleteAllMCB3()
+                PushDataIntoNotification(Kelebihan_daya(going_to_database_file[2], 3))
             }
-            PushDataIntoNotification(databsaes_data_notification_mcb5)
-        }else if(going_to_database_file[4] > 220){
-            const databsaes_data_notification_mcb5 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[4],
-                mcb:5,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb5)
-        }
-       }
-
-       //mcb 6
-      if(going_to_database_file[5] != 'undefined'){
-        if(going_to_database_file[5] > 200 && going_to_database_file[5] <= 220){
-            const databsaes_data_notification_mcb6 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[5],
-                mcb:6,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb6)
-        }else if(going_to_database_file[5] > 220){
-            const databsaes_data_notification_mcb6 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[5],
-                mcb:6,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb6)
-        }
-      }
-       //mcb 7
-    if(going_to_database_file[6] !== 'undefined'){
-        if(going_to_database_file[6] > 200 && going_to_database_file[6] <= 220){
-            const databsaes_data_notification_mcb7 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[6],
-                mcb:7,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb7)
-        }else if(going_to_database_file[6] > 220){
-            const databsaes_data_notification_mcb7 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[6],
-                mcb:7,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb7)
-        }
-
-    }
-       //mcb 8
-    if(going_to_database_file[7] != 'undefined'){
-        if(going_to_database_file[7] > 200 && going_to_database_file[7] <= 220){
-            const databsaes_data_notification_mcb8 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[7],
-                mcb:8,
-                status: 'HATI-HATI',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb8)
-        }else if(going_to_database_file[7] > 220){
-            const databsaes_data_notification_mcb8 =
-            {
-                id:Math.random(),
-                kelebihan_daya:going_to_database_file[7],
-                mcb:8,
-                status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-            }
-            PushDataIntoNotification(databsaes_data_notification_mcb8)
         }
     }
 
-           //mcb 9
-        if(going_to_database_file[8] != 'undefined'){
-            if(going_to_database_file[8] > 200 && going_to_database_file[8] <= 220){
-                const databsaes_data_notification_mcb9 =
-                {
-                    id:Math.random(),
-                    kelebihan_daya:going_to_database_file[8],
-                    mcb:9,
-                    status: 'HATI-HATI',
-                    tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+        //mcb 4
+        if(going_to_database_file[3] !== 'undefined'){
+            if(going_to_database_file[3] > 390 && going_to_database_file[3] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB4(1)
+                  },3000)
+                  
+                  if(MCB4().length > 60){
+                    deleteAllMCB4()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[3], 4))
                 }
-                PushDataIntoNotification(databsaes_data_notification_mcb9)
-            }else if(going_to_database_file[8] > 220){
-                const databsaes_data_notification_mcb9 =
-                {
-                    id:Math.random(),
-                    kelebihan_daya:going_to_database_file[8],
-                    mcb:9,
-                    status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                    tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+            }else if(going_to_database_file[3] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB4(1)
+                  },3000)
+                  
+                  if(MCB4().length > 60){
+                    deleteAllMCB4()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[3], 4))
                 }
-                PushDataIntoNotification(databsaes_data_notification_mcb9)
             }
         }
-           //mcb 10
-        if(going_to_database_file[9] != 'undefined'){
-            if(going_to_database_file[9] > 200 && going_to_database_file[9] <= 220){
-                const databsaes_data_notification_mcb10 =
-                {
-                    id:Math.random(),
-                    kelebihan_daya:going_to_database_file[9],
-                    mcb:10,
-                    status: 'HATI-HATI',
-                    tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-                }
-                PushDataIntoNotification(databsaes_data_notification_mcb10)
-            }else if(going_to_database_file[9] > 220){
-                const databsaes_data_notification_mcb10 =
-                {
-                    id:Math.random(),
-                    kelebihan_daya:going_to_database_file[9],
-                    mcb:10,
-                    status: 'KELEBIHAN DAYA, SEGERA DI CHECK !',
-                    tanggal:today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
-                }
-                PushDataIntoNotification(databsaes_data_notification_mcb10)
-            }
-        }
-            // var today1 = new Date();
-            //
-            //
-            // var database_data =
-            // {
-            //     mcb1:{
-            //         id:Math.random(),
-            //         data: going_to_database_file[0],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb2:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[1],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb3:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[2],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb4:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[3],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb5:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[4],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb6:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[5],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb7:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[6],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb8:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[7],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb9:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[8],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            //     mcb10:{
-            //         id:Math.random(),
-            //         data:going_to_database_file[9],
-            //         tanggal:today1.getFullYear()+'-'+(today1.getMonth()+1)+'-'+today1.getDate() + ' ' + today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds()
-            //     },
-            // }
-            //
-            // setTimeout(()=>{
-            //   PushDataIntoMCB(1)
-            // },3000)
-            //
-            // if(MCB().length > 5){
-            //   deleteAllMCB()
-            //   pushDataIntoMcbDatabases(database_data)
-            // }
 
+        //mcb 5
+        if(going_to_database_file[4] !== 'undefined'){
+            if(going_to_database_file[4] > 390 && going_to_database_file[4] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB5(1)
+                  },3000)
+                  
+                  if(MCB5().length > 60){
+                    deleteAllMCB5()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[4], 5))
+                }
+            }else if(going_to_database_file[4] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB5(1)
+                  },3000)
+                  
+                  if(MCB5().length > 60){
+                    deleteAllMCB5()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[4], 5))
+                }
+            }
+        }
+        //mcb 6
+        if(going_to_database_file[5] !== 'undefined'){
+            if(going_to_database_file[5] > 390 && going_to_database_file[5] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB6(1)
+                  },3000)
+                  
+                  if(MCB6().length > 60){
+                    deleteAllMCB6()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[5], 6))
+                }
+            }else if(going_to_database_file[5] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB6(1)
+                  },3000)
+                  
+                  if(MCB6().length > 60){
+                    deleteAllMCB6()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[5], 6))
+                }
+            }
+        }
+
+        //mcb 7
+        if(going_to_database_file[6] !== 'undefined'){
+            if(going_to_database_file[6] > 390 && going_to_database_file[6] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB7(1)
+                  },3000)
+                  
+                  if(MCB7().length > 60){
+                    deleteAllMCB7()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[6], 7))
+                }
+            }else if(going_to_database_file[6] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB7(1)
+                  },3000)
+                  
+                  if(MCB7().length > 60){
+                    deleteAllMCB7()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[6], 7))
+                }
+            }
+        }        
+        //mcb 8
+        if(going_to_database_file[7] !== 'undefined'){
+            if(going_to_database_file[7] > 390 && going_to_database_file[7] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB8(1)
+                  },3000)
+                  
+                  if(MCB8().length > 60){
+                    deleteAllMCB8()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[7], 8))
+                }
+            }else if(going_to_database_file[7] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB8(1)
+                  },3000)
+                  
+                  if(MCB8().length > 60){
+                    deleteAllMCB8()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[7], 8))
+                }
+            }
+        } 
+        //mcb 9
+        if(going_to_database_file[8] !== 'undefined'){
+            if(going_to_database_file[8] > 390 && going_to_database_file[8] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB9(1)
+                  },3000)
+                  
+                  if(MCB9().length > 60){
+                    deleteAllMCB9()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[8], 9))
+                }
+            }else if(going_to_database_file[8] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB9(1)
+                  },3000)
+                  
+                  if(MCB9().length > 60){
+                    deleteAllMCB9()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[8], 9))
+                }
+            }
+        }
+        //mcb 10
+        if(going_to_database_file[9] !== 'undefined'){
+            if(going_to_database_file[9] > 390 && going_to_database_file[9] <= 400){
+                setTimeout(()=>{
+                    PushDataIntoMCB10(1)
+                  },3000)
+                  
+                  if(MCB10().length > 60){
+                    deleteAllMCB10()
+                    PushDataIntoNotification(hati_hati(going_to_database_file[9], 10))
+                }
+            }else if(going_to_database_file[9] > 400){
+    
+                setTimeout(()=>{
+                    PushDataIntoMCB10(1)
+                  },3000)
+                  
+                  if(MCB10().length > 60){
+                    deleteAllMCB10()
+                    PushDataIntoNotification(Kelebihan_daya(going_to_database_file[9], 10))
+                }
+            }
+        } 
 })
 
-
-// IMPORTANT : ngk bisa membuat delay pada serialPort
-// karena antrian berjalan 1 detik dari arduino tidak berhenti !!
-
-
-
-
-// var data = 0;
-// parses.on("data", function(data){
-//   setInterval(() =>{
-//     database_data_val = data.toString().replace(/(\r\n\n\r)/gm, " ").split(" "); //parsing data important !!!
-//     console.log(database_data_val)
-//   }, 3000)
-// })
-
-
-io.sockets.on('connection',(socket)=>{
+//
+ io.sockets.on('connection',(socket)=>{
     socket.on('mcb1_power', (datamcb1) =>{
-        console.log(datamcb1)
+        com.write('1')
     })
     socket.on('mcb2_power', (datamcb2) =>{
-        console.log(datamcb2)
+        com.write(datamcb2.toString())
     })
     socket.on('mcb3_power', (datamcb3) =>{
-        console.log(datamcb3)
+        com.write(datamcb3.toString())
     })
     socket.on('mcb4_power', (datamcb4) =>{
-        console.log(datamcb4)
+        com.write(datamcb4.toString())
     })
     socket.on('mcb5_power', (datamcb5) =>{
-        console.log(datamcb5)
+        com.write(datamcb5.toString())
     })
     socket.on('mcb6_power', (datamcb6) =>{
-        console.log(datamcb6)
+        com.write(datamcb6.toString())
     })
     socket.on('mcb7_power', (datamcb7) =>{
-        console.log(datamcb7)
+        com.write(datamcb7.toString())
     })
     socket.on('mcb8_power', (datamcb8) =>{
-        console.log(datamcb8)
+        com.write(datamcb8.toString())
     })
     socket.on('mcb9_power', (datamcb9) =>{
-        console.log(datamcb9)
+        com.write(datamcb9.toString())
     })
     socket.on('mcb10_power', (datamcb10) =>{
-        console.log(datamcb10)
+        com.write(datamcb10.toString())
     })
+
      parses.on('data',(data)=>{
-        hasil = data.toString().replace(/(\r\n\n\r)/gm, " ").split(" "); //parsing data important !!!
+        hasil = data.toString().replace(/(\r\n\n\r)/gm, ",").split(","); //parsing data important !!!
+        toggleMCBupdate([
+            parseInt(hasil[10]), //mcb1
+            parseInt(hasil[11]), //mcb2
+            parseInt(hasil[12]), //mcb3
+            parseInt(hasil[13]), //mcb4 
+            parseInt(hasil[14]), //mcb5
+            parseInt(hasil[15]), //mcb6
+            parseInt(hasil[16]), //mcb7
+            parseInt(hasil[17]), //mcb8
+            parseInt(hasil[18]), //mcb9
+            parseInt(hasil[19]), //mcb10
+        ])
         socket.emit('data_dummy', {data_dummy : hasil});
      })
 
