@@ -20,7 +20,7 @@ void setup() {
 
 Serial.begin(9600);
 
-WiFi.begin("wifi_hacker", "tony201m");
+WiFi.begin("wifi_hacker", "");
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED)
   {
